@@ -62,7 +62,7 @@ const AddEditEmployee = () => {
           employee
         );
       }
-      navigate("/employee-manager/");
+      navigate("/");
     } catch (error) {
       console.error("Error saving employee", error);
     }

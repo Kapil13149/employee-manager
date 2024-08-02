@@ -12,14 +12,14 @@ const DeleteConfirmation = () => {
       await axios.delete(
         `https://669b3f09276e45187d34eb4e.mockapi.io/api/v1/employee/${id}`
       );
-      navigate("/employee-manager/");
+      navigate("/");
     } catch (error) {
       console.error("Error deleting employee", error);
     }
   };
 
   const handleCancel = () => {
-    navigate("/employee-manager/");
+    navigate("/");
   };
 
   return (
