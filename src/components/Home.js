@@ -47,17 +47,6 @@ const Home = () => {
     }
   };
 
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(
-        `https://669b3f09276e45187d34eb4e.mockapi.io/api/v1/employee/${id}`
-      );
-      fetchEmployees();
-    } catch (error) {
-      console.error("Error deleting employee", error);
-    }
-  };
-
   return (
     <div className="container">
       <h1>Employee List</h1>
