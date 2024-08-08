@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import EmployeeDetailsModal from "./EmployeeDetailsModal";
 
 const Home = () => {
   const [employees, setEmployees] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,6 +50,16 @@ const Home = () => {
     }
   };
 
+  const handleShowModal = (employeeId) => {
+    setSelectedEmployeeId(employeeId);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedEmployeeId(null);
+  };
+
   return (
     <div className="container">
       <h1>Employee List</h1>
@@ -69,11 +82,7 @@ const Home = () => {
             <th>ID</th>
             <th>Name</th>
             <th>Email</th>
-            {/* <th>Mobile</th>
-            <th>Country</th>
-            <th>State</th>
-            <th>District</th>
-            <th>Actions</th> */}
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -90,14 +99,13 @@ const Home = () => {
               <td>{employee.id}</td>
               <td>{employee.name}</td>
               <td>{employee.emailId}</td>
-              {/* <td>{employee.mobile}</td>
-              <td>{employee.country}</td>
-              <td>{employee.state}</td>
-              <td>{employee.district}</td> */}
               <td>
-                <Link to={`/details/${employee.id}`}>
-                  <button className="btn btn-info me-2">Details</button>
-                </Link>
+                <button
+                  className="btn btn-info me-2"
+                  onClick={() => handleShowModal(employee.id)}
+                >
+                  Details
+                </button>
                 <Link to={`/edit/${employee.id}`}>
                   <button className="btn btn-primary me-2">
                     <i className="bi bi-pencil"></i>
@@ -113,6 +121,11 @@ const Home = () => {
           ))}
         </tbody>
       </table>
+      <EmployeeDetailsModal
+        show={showModal}
+        handleClose={handleCloseModal}
+        employeeId={selectedEmployeeId}
+      />
     </div>
   );
 };
